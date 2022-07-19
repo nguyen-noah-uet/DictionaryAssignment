@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="600.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.MainController">
+    <top>
+        <Pane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #1f57b5;" BorderPane.alignment="CENTER">
+            <Label layoutY="11.0" text="Từ điển Anh-Việt" textFill="WHITE">
+                <font>
+                    <Font name="Consolas" size="24.0"/>
+                </font>
+                <padding>
+                    <Insets left="150.0"/>
+                </padding>
+            </Label>
+        </Pane>
+    </top>
+    <center>
+        <AnchorPane prefHeight="550.0" prefWidth="650.0" BorderPane.alignment="CENTER">
+            <StackPane fx:id="viewStack" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #3c3f41;"
+                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                       AnchorPane.topAnchor="0.0"/>
+        </AnchorPane>
+    </center>
+    <left>
+        <VBox prefHeight="330.0" prefWidth="150.0" spacing="5.0" style="-fx-background-color: #4b4b4c;"
+              BorderPane.alignment="CENTER">
+            <Button fx:id="searchVocabButton" mnemonicParsing="false" onAction="#searchVocabButton_OnClicked"
+                    prefHeight="70.0" prefWidth="150.0" style="-fx-background-color: #4b4b4c;" text="Tra từ"
+                    textFill="WHITE">
+                <font>
+                    <Font name="Consolas" size="17.0"/>
+                </font>
+            </Button>
+            <Button fx:id="translateTextButton" mnemonicParsing="false" onAction="#translateTextButton_OnClicked"
+                    prefHeight="70.0" prefWidth="150.0" style="-fx-background-color: #4b4b4c;" text="Dịch đoạn văn"
+                    textFill="WHITE">
+                <font>
+                    <Font name="Consolas" size="17.0"/>
+                </font>
+            </Button>
+        </VBox>
+    </left>
+</BorderPane>
