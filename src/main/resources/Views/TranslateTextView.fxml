@@ -45,11 +45,21 @@
                         </Button>
                         <Button fx:id="leftListenButton"
                                 style="-fx-background-color: #76b5c5; -fx-cursor: hand"
-                                onAction="#leftListenButton_OnClicked" text="🎧 Nghe" GridPane.rowIndex="2"/>
+                                minWidth="125" maxWidth="125" minHeight="45" maxHeight="45"
+                                onAction="#leftListenButton_OnClicked" text="🎧 Nghe" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Button>
                         <Button fx:id="rightListenButton"
                                 style="-fx-background-color: #76b5c5; -fx-cursor: hand"
+                                minWidth="125" maxWidth="125" minHeight="45" maxHeight="45"
                                 onAction="#rightListenButton_Onclicked" text="🎧 Nghe" GridPane.columnIndex="2"
-                                GridPane.rowIndex="2"/>
+                                GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Button>
                     </children>
                     <BorderPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0"/>

@@ -17,7 +17,7 @@
             xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.Controllers.MainController">
     <top>
         <Pane maxHeight="70.0" minHeight="70.0" prefHeight="50.0" prefWidth="600.0"
-              style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER">
+              style="-fx-background-color: #0e639c;" BorderPane.alignment="CENTER">
             <children>
                 <Label alignment="CENTER" layoutY="11.0" text="Từ điển Anh-Việt" textFill="WHITE">
                     <font>
