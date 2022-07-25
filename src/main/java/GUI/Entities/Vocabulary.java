@@ -19,6 +19,11 @@ public class Vocabulary {
 
     }
 
+    public Vocabulary(String word, String detailString) {
+        this.word = word;
+        this.detailString = detailString;
+    }
+
     public String getId() {
         return id;
     }
@@ -42,12 +47,6 @@ public class Vocabulary {
     public void setDetailString(String detail) {
         this.detailString = detail;
     }
-
-    public Vocabulary(String word, String detailString) {
-        this.word = word;
-        this.detailString = detailString;
-    }
-
 
     @Override
     public String toString() {

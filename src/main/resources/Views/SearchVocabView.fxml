@@ -10,55 +10,68 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.web.WebView?>
 
-<SplitPane dividerPositions="0.5" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.SearchVocabController">
+<SplitPane xmlns:fx="http://javafx.com/fxml/1" dividerPositions="0.5" prefHeight="400.0" prefWidth="600.0"
+           xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.Controllers.SearchVocabController">
     <items>
         <BorderPane maxWidth="270.0" minWidth="200.0">
-         <center>
-            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-              <items>
-                <AnchorPane maxHeight="50.0" minHeight="50.0" minWidth="0.0">
-                     <children>
-                        <TextField fx:id="searchTextField" layoutX="34.0" layoutY="15.0" promptText="Tìm kiếm" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                     <children>
-                        <ListView fx:id="vocabularyList" layoutX="34.0" layoutY="39.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-              </items>
-            </SplitPane>
-         </center></BorderPane>
+            <center>
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0"
+                           BorderPane.alignment="CENTER">
+                    <items>
+                        <AnchorPane maxHeight="50.0" minHeight="50.0" minWidth="0.0">
+                            <children>
+                                <TextField fx:id="searchTextField" layoutX="34.0" layoutY="15.0" promptText="Tìm kiếm"
+                                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                            <children>
+                                <ListView fx:id="vocabularyList" layoutX="34.0" layoutY="39.0" prefHeight="200.0"
+                                          prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                            </children>
+                        </AnchorPane>
+                    </items>
+                </SplitPane>
+            </center>
+        </BorderPane>
         <BorderPane>
-         <center>
-            <WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </center>
-         <bottom>
-            <HBox fx:id="bottomHBox" alignment="CENTER_LEFT" maxHeight="60.0" minHeight="60.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="modifyButton" mnemonicParsing="false" style="-fx-background-color: #76b5c5; -fx-cursor: hand;" text="🗊 Chỉnh sửa">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="deleteButton" mnemonicParsing="false" style="-fx-background-color: #76b5c5; -fx-cursor: hand;" text="🗑 Xóa từ này">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-         </bottom>
-         <top>
-            <HBox fx:id="topHBox" alignment="CENTER_LEFT" maxHeight="50.0" minHeight="50.0" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="pronounceButton" mnemonicParsing="false" style="-fx-background-color: #76b5c5; -fx-cursor: hand;" text="Phát âm 🎧">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-         </top></BorderPane>
+            <center>
+                <WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+            </center>
+            <bottom>
+                <HBox fx:id="bottomHBox" alignment="CENTER_LEFT" maxHeight="60.0" minHeight="60.0"
+                      BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="modifyButton" mnemonicParsing="false"
+                                style="-fx-background-color: #76b5c5; -fx-cursor: hand;" text="🗊 Chỉnh sửa">
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="deleteButton" mnemonicParsing="false"
+                                style="-fx-background-color: #76b5c5; -fx-cursor: hand;" text="🗑 Xóa từ này">
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                </HBox>
+            </bottom>
+            <top>
+                <HBox fx:id="topHBox" alignment="CENTER_LEFT" maxHeight="50.0" minHeight="50.0" prefHeight="100.0"
+                      prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="pronounceButton" mnemonicParsing="false"
+                                style="-fx-background-color: #76b5c5; -fx-cursor: hand;" text="Phát âm 🎧">
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                </HBox>
+            </top>
+        </BorderPane>
     </items>
 </SplitPane>
