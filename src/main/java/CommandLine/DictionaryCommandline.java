@@ -1,5 +1,3 @@
-package CommandLine;
-
 public class DictionaryCommandLine {
     DictionaryManagement dictionaryManagement = new DictionaryManagement();
     Dictionary dictionary = new Dictionary();
