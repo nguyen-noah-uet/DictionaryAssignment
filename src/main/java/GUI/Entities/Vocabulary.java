@@ -8,7 +8,7 @@ public class Vocabulary {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private String id;
+    private int id;
 
     @Column(name = "word")
     private String word;
@@ -24,11 +24,11 @@ public class Vocabulary {
         this.detailString = detailString;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

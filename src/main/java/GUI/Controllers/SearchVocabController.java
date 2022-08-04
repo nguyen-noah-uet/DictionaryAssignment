@@ -10,10 +10,7 @@ import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.web.WebView;
@@ -94,13 +91,48 @@ public class SearchVocabController implements Initializable {
     }
 
     public void modifyButton_OnClicked(ActionEvent actionEvent) throws IOException {
+        if (selectedVocabulary == null)
+            return;
         MainController.getMainController().navigateToEditVocabView(selectedVocabulary, dataService);
     }
 
     public void deleteButton_OnClicked(ActionEvent actionEvent) {
+        if (selectedVocabulary == null)
+            return;
+        ButtonType deleteButtonType = new ButtonType("Xóa");
+        ButtonType cancelButtonType = new ButtonType("Hủy");
+
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION, "", deleteButtonType, cancelButtonType);
+        confirmationAlert.setTitle("Xóa từ vựng");
+        confirmationAlert.setHeaderText("Bạn có chắc muốn xóa từ '" + selectedVocabulary.getWord() + "'?");
+        confirmationAlert.showAndWait();
+
+        if (confirmationAlert.getResult() == deleteButtonType) {
+            dataService.remove(selectedVocabulary.getId());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+            alert.setTitle("Thành công");
+            alert.setHeaderText("Đã xóa từ thành công");
+            alert.showAndWait();
+            updateVocabularyList(null);
+            searchTextField.setText("");
+        }
     }
 
     public void pronounceButton_OnClicked(MouseEvent mouseEvent) throws ExecutionException, InterruptedException {
-        textToSpeechService.textToSpeech(selectedVocabulary.getWord(), Language.English);
+        if (selectedVocabulary == null)
+            return;
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    textToSpeechService.textToSpeech(selectedVocabulary.getWord(), Language.English);
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        thread.start();
     }
 }
