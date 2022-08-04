@@ -1,5 +1,7 @@
 package GUI.Controllers;
 
+import GUI.Services.Api.ApiCognitiveMicrosoftTextToSpeechService;
+import GUI.Services.Api.ApiCognitiveMicrosoftTranslatorService;
 import GUI.Services.Api.Language;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -13,6 +15,7 @@ import javafx.scene.control.TextArea;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
 public class TranslateTextController implements Initializable {
 
@@ -36,21 +39,39 @@ public class TranslateTextController implements Initializable {
     private final Property<Boolean> showSwapButton = new SimpleBooleanProperty(true);
 
     private String textTranslated;
+    private final ApiCognitiveMicrosoftTranslatorService translatorService;
+    private final ApiCognitiveMicrosoftTextToSpeechService textToSpeechService;
 
 
     public TranslateTextController() {
+        translatorService = new ApiCognitiveMicrosoftTranslatorService();
+        textToSpeechService = new ApiCognitiveMicrosoftTextToSpeechService();
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            swapButton.visibleProperty().bindBidirectional(showSwapButton);
             leftComboBox.getItems().addAll(Language.getSrcLanguage());
             rightComboBox.getItems().addAll(Language.getDesLanguage());
             Language english = leftComboBox.getItems().filtered(x -> x.getName().equals("English")).stream().findFirst().get();
             Language vietnamese = rightComboBox.getItems().filtered(x -> x.getName().equals("Vietnamese")).stream().findFirst().get();
             leftComboBox.setValue(english);
             rightComboBox.setValue(vietnamese);
+            leftComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if (leftComboBox.getValue().getName().equals("Auto detect")) {
+                    showSwapButton.setValue(false);
+                } else {
+                    showSwapButton.setValue(true);
+                }
+                textTranslated = translatorService.translate(leftTextArea.getText(), leftComboBox.getValue().getAcronym(), rightComboBox.getValue().getAcronym());
+                rightTextArea.setText(textTranslated);
+            });
+            rightComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+                textTranslated = translatorService.translate(leftTextArea.getText(), leftComboBox.getValue().getAcronym(), rightComboBox.getValue().getAcronym());
+                rightTextArea.setText(textTranslated);
+            });
         } catch (Exception e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -67,12 +88,42 @@ public class TranslateTextController implements Initializable {
         Language des = rightComboBox.getItems().filtered(x -> x.getName().equals(srcLanguageName)).stream().findFirst().get();
         leftComboBox.setValue(src);
         rightComboBox.setValue(des);
-        leftTextArea.setText(rightTextArea.getText());
+        leftTextArea.setText("");
+        rightTextArea.setText("");
     }
 
     public void leftListenButton_OnClicked(ActionEvent actionEvent) {
+        listen(leftTextArea.getText(), leftComboBox.getValue().getAcronym());
     }
 
     public void rightListenButton_Onclicked(ActionEvent actionEvent) {
+        listen(rightTextArea.getText(), rightComboBox.getValue().getAcronym());
+    }
+
+    private void listen(String text, String languageAcronym) {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    textToSpeechService.textToSpeech(text, languageAcronym);
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        thread.start();
+    }
+
+    public void translateButton_OnClicked(ActionEvent actionEvent) {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                textTranslated = translatorService.translate(leftTextArea.getText(), leftComboBox.getValue().getAcronym(), rightComboBox.getValue().getAcronym());
+                rightTextArea.setText(textTranslated);
+            }
+        };
+        thread.start();
     }
 }

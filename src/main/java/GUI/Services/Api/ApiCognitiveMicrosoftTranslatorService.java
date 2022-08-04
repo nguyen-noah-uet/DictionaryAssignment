@@ -9,7 +9,7 @@ import java.io.IOException;
 public class ApiCognitiveMicrosoftTranslatorService {
     private final String endpoint = "https://api.cognitive.microsofttranslator.com";
     private final String contentType = "application/json";
-    private final String subscriptionKey = "2b8038e93534424a82adf6885e219900";
+    private final String subscriptionKey = "363b6fe280c141468f2d4108d80e3193";
     private final String subscriptionRegion = "southeastasia";
     private final String charset = "UTF-8";
     private String route = "";

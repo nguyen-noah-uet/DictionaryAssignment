@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
-<SplitPane dividerPositions="0.5" prefHeight="720" prefWidth="980" xmlns="http://javafx.com/javafx/8.0.171"
-           xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.SearchVocabController">
+
+<SplitPane dividerPositions="0.5" prefHeight="720" prefWidth="980" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.SearchVocabController">
     <items>
         <BorderPane maxWidth="270.0" minWidth="200.0">
             <center>
-                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0"
-                           BorderPane.alignment="CENTER">
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
                     <items>
                         <AnchorPane maxHeight="50.0" minHeight="50.0" minWidth="0.0">
                             <children>
-                                <TextField fx:id="searchTextField" layoutX="34.0" layoutY="15.0" promptText="Tìm kiếm"
-                                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                <TextField fx:id="searchTextField" layoutX="34.0" layoutY="15.0" promptText="Tìm kiếm" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                             </children>
                         </AnchorPane>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                             <children>
-                                <ListView fx:id="vocabularyList" layoutX="34.0" layoutY="39.0" prefHeight="200.0"
-                                          prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                <ListView fx:id="vocabularyList" layoutX="34.0" layoutY="39.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                             </children>
                         </AnchorPane>
                     </items>
@@ -33,60 +33,47 @@
         </BorderPane>
         <BorderPane>
             <center>
-                <WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+                <WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
             </center>
             <bottom>
-                <HBox fx:id="bottomHBox" alignment="CENTER_LEFT" maxHeight="60.0" minHeight="60.0"
-                      BorderPane.alignment="CENTER">
+                <HBox fx:id="bottomHBox" alignment="CENTER_LEFT" maxHeight="60.0" minHeight="60.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="addNewVocabButton" mnemonicParsing="false"
-                                onAction="#addNewVocabButton_OnClicked"
-                                style="-fx-background-color: #1367cf; -fx-cursor: hand;" text="+ Thêm từ mới"
-                                textFill="WHITE">
+                        <Button fx:id="addNewVocabButton" mnemonicParsing="false" onAction="#addNewVocabButton_OnClicked" style="-fx-background-color: #1367cf; -fx-cursor: hand;" text="+ Thêm từ mới" textFill="WHITE">
                             <HBox.margin>
-                                <Insets left="20.0"/>
+                                <Insets left="20.0" />
                             </HBox.margin>
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="modifyButton" maxHeight="40" maxWidth="150" minHeight="40" minWidth="150"
-                                mnemonicParsing="false" onAction="#modifyButton_OnClicked"
-                                style="-fx-background-color: #1367cf; -fx-cursor: hand;" text="🗊 Chỉnh sửa"
-                                textFill="WHITE">
+                        <Button fx:id="modifyButton" maxHeight="40" maxWidth="150" minHeight="40" minWidth="150" mnemonicParsing="false" onAction="#modifyButton_OnClicked" style="-fx-background-color: #1367cf; -fx-cursor: hand;" text="🗊 Chỉnh sửa" textFill="WHITE">
                             <HBox.margin>
-                                <Insets left="20.0"/>
+                                <Insets left="20.0" />
                             </HBox.margin>
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="deleteButton" maxHeight="40" maxWidth="150" minHeight="40" minWidth="150"
-                                mnemonicParsing="false" onAction="#deleteButton_OnClicked"
-                                style="-fx-background-color: #e34724; -fx-cursor: hand;" text="🗑 Xóa từ này"
-                                textFill="WHITE">
+                        <Button fx:id="deleteButton" maxHeight="40" maxWidth="150" minHeight="40" minWidth="150" mnemonicParsing="false" onAction="#deleteButton_OnClicked" style="-fx-background-color: #e34724; -fx-cursor: hand;" text="🗑 Xóa từ này" textFill="WHITE">
                             <HBox.margin>
-                                <Insets left="20.0"/>
+                                <Insets left="20.0" />
                             </HBox.margin>
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Button>
                     </children>
                 </HBox>
             </bottom>
             <top>
-                <HBox fx:id="topHBox" alignment="CENTER_LEFT" maxHeight="50.0" minHeight="50.0" prefHeight="100.0"
-                      prefWidth="200.0" BorderPane.alignment="CENTER">
+                <HBox fx:id="topHBox" alignment="CENTER_LEFT" maxHeight="50.0" minHeight="50.0" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="pronounceButton" onMouseClicked="#pronounceButton_OnClicked" maxHeight="40" maxWidth="150" minHeight="40" minWidth="150"
-                                mnemonicParsing="false" style="-fx-background-color: #1367cf; -fx-cursor: hand;"
-                                text="Phát âm 🎧" textFill="WHITE">
+                        <Button fx:id="pronounceButton" maxHeight="40" maxWidth="150" minHeight="40" minWidth="150" mnemonicParsing="false" onMouseClicked="#pronounceButton_OnClicked" style="-fx-background-color: #1367cf; -fx-cursor: hand;" text="Phát âm 🎧" textFill="WHITE">
                             <HBox.margin>
-                                <Insets left="20.0"/>
+                                <Insets left="20.0" />
                             </HBox.margin>
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Button>
                     </children>
