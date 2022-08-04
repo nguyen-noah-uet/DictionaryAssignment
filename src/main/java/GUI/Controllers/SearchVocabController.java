@@ -1,7 +1,9 @@
 package GUI.Controllers;
 
 import GUI.Entities.Vocabulary;
+import GUI.Services.Api.ApiCognitiveMicrosoftTextToSpeechService;
 import GUI.Services.Api.ApiCognitiveMicrosoftTranslatorService;
+import GUI.Services.Api.Language;
 import GUI.Services.Data.DictionaryDataService;
 import GUI.Services.Data.IDataService;
 import javafx.beans.property.Property;
@@ -12,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.web.WebView;
 
@@ -40,6 +43,7 @@ public class SearchVocabController implements Initializable {
     public Button pronounceButton;
     private final IDataService<Vocabulary> dataService;
     private final ApiCognitiveMicrosoftTranslatorService translatorService;
+    private final ApiCognitiveMicrosoftTextToSpeechService textToSpeechService;
     private Vocabulary selectedVocabulary;
     public Vocabulary getSelectedVocabulary() {
         return selectedVocabulary;
@@ -51,6 +55,7 @@ public class SearchVocabController implements Initializable {
     public SearchVocabController() {
         dataService = new DictionaryDataService();
         translatorService = new ApiCognitiveMicrosoftTranslatorService();
+        textToSpeechService = new ApiCognitiveMicrosoftTextToSpeechService();
         vocabularyList = new ListView<>();
     }
 
@@ -93,5 +98,9 @@ public class SearchVocabController implements Initializable {
     }
 
     public void deleteButton_OnClicked(ActionEvent actionEvent) {
+    }
+
+    public void pronounceButton_OnClicked(MouseEvent mouseEvent) throws ExecutionException, InterruptedException {
+        textToSpeechService.textToSpeech(selectedVocabulary.getWord(), Language.English);
     }
 }

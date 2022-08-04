@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.web.WebView?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<SplitPane xmlns:fx="http://javafx.com/fxml/1" dividerPositions="0.5" prefHeight="400.0" prefWidth="600.0"
-           xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.Controllers.SearchVocabController">
+<?import javafx.scene.web.WebView?>
+<SplitPane dividerPositions="0.5" prefHeight="720" prefWidth="980" xmlns="http://javafx.com/javafx/8.0.171"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.SearchVocabController">
     <items>
         <BorderPane maxWidth="270.0" minWidth="200.0">
             <center>
@@ -47,19 +41,8 @@
                     <children>
                         <Button fx:id="addNewVocabButton" mnemonicParsing="false"
                                 onAction="#addNewVocabButton_OnClicked"
-                                style="-fx-background-color: #76b5c5; -fx-cursor: hand;" text="+ Thêm từ mới"
-                                textFill="aliceblue">
-                            <HBox.margin>
-                                <Insets left="10.0"/>
-                            </HBox.margin>
-                            <font>
-                                <Font size="18.0"/>
-                            </font>
-                        </Button>
-                        <Button fx:id="modifyButton" mnemonicParsing="false"
-                                onAction="#modifyButton_OnClicked"
-                                minWidth="150" maxWidth="150" minHeight="40" maxHeight="40"
-                                style="-fx-background-color: #76b5c5; -fx-cursor: hand;" text="🗊 Chỉnh sửa">
+                                style="-fx-background-color: #1367cf; -fx-cursor: hand;" text="+ Thêm từ mới"
+                                textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="20.0"/>
                             </HBox.margin>
@@ -67,10 +50,21 @@
                                 <Font size="18.0"/>
                             </font>
                         </Button>
-                        <Button fx:id="deleteButton" mnemonicParsing="false"
-                                onAction="#deleteButton_OnClicked"
-                                minWidth="150" maxWidth="150" minHeight="40" maxHeight="40"
-                                style="-fx-background-color: #76b5c5; -fx-cursor: hand;" text="🗑 Xóa từ này">
+                        <Button fx:id="modifyButton" maxHeight="40" maxWidth="150" minHeight="40" minWidth="150"
+                                mnemonicParsing="false" onAction="#modifyButton_OnClicked"
+                                style="-fx-background-color: #1367cf; -fx-cursor: hand;" text="🗊 Chỉnh sửa"
+                                textFill="WHITE">
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="deleteButton" maxHeight="40" maxWidth="150" minHeight="40" minWidth="150"
+                                mnemonicParsing="false" onAction="#deleteButton_OnClicked"
+                                style="-fx-background-color: #e34724; -fx-cursor: hand;" text="🗑 Xóa từ này"
+                                textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="20.0"/>
                             </HBox.margin>
@@ -85,9 +79,9 @@
                 <HBox fx:id="topHBox" alignment="CENTER_LEFT" maxHeight="50.0" minHeight="50.0" prefHeight="100.0"
                       prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="pronounceButton" mnemonicParsing="false"
-                                minWidth="150" maxWidth="150" minHeight="40" maxHeight="40"
-                                style="-fx-background-color: #76b5c5; -fx-cursor: hand;" text="Phát âm 🎧">
+                        <Button fx:id="pronounceButton" onMouseClicked="#pronounceButton_OnClicked" maxHeight="40" maxWidth="150" minHeight="40" minWidth="150"
+                                mnemonicParsing="false" style="-fx-background-color: #1367cf; -fx-cursor: hand;"
+                                text="Phát âm 🎧" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="20.0"/>
                             </HBox.margin>
