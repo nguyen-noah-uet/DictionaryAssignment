@@ -23,9 +23,9 @@ public class DictionaryCommandLine {
     dictionaryManagement.dictionaryLookup(dictionary);
   }
 
-  public static void main(String[] args) throws Exception {
-    DictionaryCommandLine dictionaryCommandLine = new DictionaryCommandLine();
-    Dictionary dictionary = new Dictionary();
-    dictionaryCommandLine.dictionaryAdvanced(dictionary);
-  }
+ // public static void main(String[] args) throws Exception {
+   // DictionaryCommandLine dictionaryCommandLine = new DictionaryCommandLine();
+   // Dictionary dictionary = new Dictionary();
+   // dictionaryCommandLine.dictionaryAdvanced(dictionary);
+//  }
 }
