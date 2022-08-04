@@ -45,7 +45,19 @@
                 <HBox fx:id="bottomHBox" alignment="CENTER_LEFT" maxHeight="60.0" minHeight="60.0"
                       BorderPane.alignment="CENTER">
                     <children>
+                        <Button fx:id="addNewVocabButton" mnemonicParsing="false"
+                                onAction="#addNewVocabButton_OnClicked"
+                                style="-fx-background-color: #76b5c5; -fx-cursor: hand;" text="+ Thêm từ mới"
+                                textFill="aliceblue">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Button>
                         <Button fx:id="modifyButton" mnemonicParsing="false"
+                                onAction="#modifyButton_OnClicked"
                                 minWidth="150" maxWidth="150" minHeight="40" maxHeight="40"
                                 style="-fx-background-color: #76b5c5; -fx-cursor: hand;" text="🗊 Chỉnh sửa">
                             <HBox.margin>
@@ -56,6 +68,7 @@
                             </font>
                         </Button>
                         <Button fx:id="deleteButton" mnemonicParsing="false"
+                                onAction="#deleteButton_OnClicked"
                                 minWidth="150" maxWidth="150" minHeight="40" maxHeight="40"
                                 style="-fx-background-color: #76b5c5; -fx-cursor: hand;" text="🗑 Xóa từ này">
                             <HBox.margin>
