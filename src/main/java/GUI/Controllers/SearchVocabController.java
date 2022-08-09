@@ -73,11 +73,12 @@ public class SearchVocabController implements Initializable {
             webView.setFontScale(1.2);
         });
         updateVocabularyList(null);
+        vocabularyList.getSelectionModel().select(0);
     }
 
     private void updateVocabularyList(String searchTerm) {
         vocabularyList.getItems().clear();
-        if (searchTerm == null || searchTerm == "") {
+        if (searchTerm == null || searchTerm.equals("")) {
             vocabularyList.getItems().addAll(dataService.getWords(0, 50));
             vocabularyList.setVisible(true);
             return;
@@ -118,21 +119,16 @@ public class SearchVocabController implements Initializable {
         }
     }
 
-    public void pronounceButton_OnClicked(MouseEvent mouseEvent) throws ExecutionException, InterruptedException {
+    public void pronounceButton_OnClicked(MouseEvent mouseEvent) {
         if (selectedVocabulary == null)
             return;
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    textToSpeechService.textToSpeech(selectedVocabulary.getWord(), Language.English);
-                } catch (ExecutionException e) {
-                    throw new RuntimeException(e);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+        Thread thread = new Thread(() -> {
+            try {
+                textToSpeechService.textToSpeech(selectedVocabulary.getWord(), Language.English);
+            } catch (ExecutionException | InterruptedException e) {
+                throw new RuntimeException(e);
             }
-        };
+        });
         thread.start();
     }
 }
