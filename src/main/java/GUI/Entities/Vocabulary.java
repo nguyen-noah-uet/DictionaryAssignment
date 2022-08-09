@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Vocabulary {
     @Column(name = "id")
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "word")
