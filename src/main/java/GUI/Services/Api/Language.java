@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Language {
+    public static String Auto_Detect = "";
     public static String Chinese_Simplified = "zh-Hans";
     public static String Chinese_Traditional = "zh-Hant";
     public static String English = "en";
@@ -27,7 +28,7 @@ public class Language {
 
     public static List<Language> getSrcLanguage() {
         List<Language> languages = new ArrayList<>();
-        languages.add(new Language("Auto detect", ""));
+        languages.add(new Language("Tự động phát hiện ngôn ngữ", ""));
         return getLanguages(languages);
     }
 
@@ -37,20 +38,20 @@ public class Language {
     }
 
     private static List<Language> getLanguages(List<Language> languages) {
-        languages.add(new Language("Chinese Simplified", "zh-Hans"));
-        languages.add(new Language("Chinese Traditional", "zh-Hant"));
-        languages.add(new Language("English", "en"));
-        languages.add(new Language("French", "fr"));
-        languages.add(new Language("German", "de"));
-        languages.add(new Language("Italian", "it"));
-        languages.add(new Language("Japanese", "ja"));
-        languages.add(new Language("Korean", "ko"));
-        languages.add(new Language("Lao", "lo"));
-        languages.add(new Language("Portuguese (Brazil)", "pt"));
-        languages.add(new Language("Portuguese (Portugal)", "pt-pt"));
-        languages.add(new Language("Russian", "ru"));
-        languages.add(new Language("Thai", "th"));
-        languages.add(new Language("Vietnamese", "vi"));
+        languages.add(new Language("Tiếng Trung (giản thể)", "zh-Hans"));
+        languages.add(new Language("Tiếng Trung (phồn thể)", "zh-Hant"));
+        languages.add(new Language("Tiếng Anh", "en"));
+        languages.add(new Language("Tiếng Pháp", "fr"));
+        languages.add(new Language("Tiếng Đức", "de"));
+        languages.add(new Language("Tiếng Ý", "it"));
+        languages.add(new Language("Tiếng Nhật", "ja"));
+        languages.add(new Language("Tiếng Hàn", "ko"));
+        languages.add(new Language("Tiếng Lào", "lo"));
+        languages.add(new Language("Tiếng Bồ Đào Nha (Brazil)", "pt"));
+        languages.add(new Language("Tiếng Bồ Đào Nha (Bồ Đào Nha)", "pt-pt"));
+        languages.add(new Language("Tiếng Nga", "ru"));
+        languages.add(new Language("Tiếng Thái", "th"));
+        languages.add(new Language("Tiếng Việt", "vi"));
         return languages;
     }
 

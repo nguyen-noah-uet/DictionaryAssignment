@@ -55,12 +55,12 @@ public class TranslateTextController implements Initializable {
             swapButton.visibleProperty().bindBidirectional(showSwapButton);
             leftComboBox.getItems().addAll(Language.getSrcLanguage());
             rightComboBox.getItems().addAll(Language.getDesLanguage());
-            Language english = leftComboBox.getItems().filtered(x -> x.getName().equals("English")).stream().findFirst().get();
-            Language vietnamese = rightComboBox.getItems().filtered(x -> x.getName().equals("Vietnamese")).stream().findFirst().get();
+            Language english = leftComboBox.getItems().filtered(x -> x.getName().equals("Tiếng Anh")).stream().findFirst().get();
+            Language vietnamese = rightComboBox.getItems().filtered(x -> x.getName().equals("Tiếng Việt")).stream().findFirst().get();
             leftComboBox.setValue(english);
             rightComboBox.setValue(vietnamese);
             leftComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-                if (leftComboBox.getValue().getName().equals("Auto detect")) {
+                if (leftComboBox.getValue().getName().equals("Tự động phát hiện ngôn ngữ")) {
                     showSwapButton.setValue(false);
                 } else {
                     showSwapButton.setValue(true);
@@ -100,12 +100,12 @@ public class TranslateTextController implements Initializable {
         listen(rightTextArea.getText(), rightComboBox.getValue().getAcronym());
     }
 
-    private void listen(String text, String languageAcronym) {
+    private void listen(String text,final String languageAcronym) {
         Thread thread = new Thread() {
             @Override
             public void run() {
                 try {
-                    textToSpeechService.textToSpeech(text, languageAcronym);
+                    textToSpeechService.textToSpeech(text, languageAcronym.equals(Language.Auto_Detect) ? Language.English : languageAcronym);
                 } catch (ExecutionException e) {
                     throw new RuntimeException(e);
                 } catch (InterruptedException e) {
