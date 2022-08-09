@@ -1,14 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI.Controllers.AddNewVocabController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.WebView?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="720.0" prefWidth="1280.0"
+            style="-fx-background-color: #FFFFFF;"
+            xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.Controllers.AddNewVocabController">
+    <left>
+        <ScrollPane maxWidth="310.0" minWidth="300.0" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+            <VBox>
+                <HBox>
+                    <VBox.margin>
+                        <Insets left="10.0" top="10.0"/>
+                    </VBox.margin>
+                    <Label text="Từ mới:     ">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                    </Label>
+                    <TextField fx:id="newVocabTextField"/>
+                </HBox>
+                <HBox layoutX="20.0" layoutY="101.0">
+                    <Label text="Phiên âm:">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                        <HBox.margin>
+                            <Insets left="10.0" top="10.0"/>
+                        </HBox.margin>
+                    </Label>
+                    <TextField fx:id="phoneticTextField">
+                        <HBox.margin>
+                            <Insets left="10.0" top="10.0"/>
+                        </HBox.margin>
+                    </TextField>
+                </HBox>
+                <HBox>
+                    <VBox.margin>
+                        <Insets left="10.0" top="10.0"/>
+                    </VBox.margin>
+                    <Label text="Nghĩa:">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                    </Label>
+                </HBox>
+                <VBox>
+                    <ComboBox fx:id="wordTypeComboBox1" prefWidth="150.0" promptText="Chọn loại từ">
+                        <VBox.margin>
+                            <Insets left="10.0" top="10.0"/>
+                        </VBox.margin>
+                    </ComboBox>
+                    <TextArea fx:id="wordMeaning1" prefHeight="200.0" prefWidth="200.0"
+                              promptText="Nhập vào nghĩa">
+                        <VBox.margin>
+                            <Insets left="10.0" right="10.0"/>
+                        </VBox.margin>
+                    </TextArea>
+                </VBox>
+                <VBox layoutX="10.0" layoutY="133.0">
+                    <ComboBox fx:id="wordTypeComboBox2" prefWidth="150.0" promptText="Chọn loại từ">
+                        <VBox.margin>
+                            <Insets left="10.0" top="10.0"/>
+                        </VBox.margin>
+                    </ComboBox>
+                    <TextArea fx:id="wordMeaning2" prefHeight="200.0" prefWidth="200.0"
+                              promptText="Nhập vào nghĩa">
+                        <VBox.margin>
+                            <Insets left="10.0" right="10.0"/>
+                        </VBox.margin>
+                    </TextArea>
+                </VBox>
+                <VBox layoutX="10.0" layoutY="374.0">
+                    <ComboBox fx:id="wordTypeComboBox3" prefWidth="150.0" promptText="Chọn loại từ">
+                        <VBox.margin>
+                            <Insets left="10.0" top="10.0"/>
+                        </VBox.margin>
+                    </ComboBox>
+                    <TextArea fx:id="wordMeaning3" prefHeight="200.0" prefWidth="200.0"
+                              promptText="Nhập vào nghĩa">
+                        <VBox.margin>
+                            <Insets left="10.0" right="10.0"/>
+                        </VBox.margin>
+                    </TextArea>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </left>
+    <center>
+        <BorderPane BorderPane.alignment="CENTER">
+            <top>
+                <Label text="Xem trước:" BorderPane.alignment="CENTER_LEFT">
+                    <font>
+                        <Font size="25.0"/>
+                    </font>
+                    <BorderPane.margin>
+                        <Insets bottom="10.0" left="10.0" top="10.0"/>
+                    </BorderPane.margin>
+                </Label>
+            </top>
+            <center>
+                <WebView fx:id="webView" BorderPane.alignment="CENTER"/>
+            </center>
+            <bottom>
+                <HBox alignment="CENTER_LEFT" maxHeight="70.0" minHeight="70.0" prefHeight="100.0" prefWidth="200.0"
+                      BorderPane.alignment="CENTER">
+                    <Button fx:id="submitButton" onAction="#submitButton_OnClicked"
+                            style="-fx-background-color: #34d154; -fx-cursor: hand;" text="✓ Lưu">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                        <HBox.margin>
+                            <Insets left="10.0"/>
+                        </HBox.margin>
+                    </Button>
+                    <Button fx:id="goBackButton" onAction="#goBackButton_OnClicked"
+                            style="-fx-background-color: #c5d0d6; -fx-cursor: hand;" text="⏎ Quay lại">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                        <HBox.margin>
+                            <Insets left="20.0"/>
+                        </HBox.margin>
+                    </Button>
+                </HBox>
+            </bottom>
+        </BorderPane>
+    </center>
+</BorderPane>
