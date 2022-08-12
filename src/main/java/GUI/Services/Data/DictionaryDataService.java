@@ -10,7 +10,16 @@ public class DictionaryDataService implements IDataService<Vocabulary> {
     private final EntityManager entityManager;
     private final EntityManagerFactory entityManagerFactory;
 
-    public DictionaryDataService() {
+    private static DictionaryDataService instance = null;
+
+    public static DictionaryDataService getInstance() {
+        if (instance == null) {
+            instance = new DictionaryDataService();
+        }
+        return instance;
+    }
+
+    private DictionaryDataService() {
         entityManagerFactory = Persistence.createEntityManagerFactory("default");
         entityManager = entityManagerFactory.createEntityManager();
     }

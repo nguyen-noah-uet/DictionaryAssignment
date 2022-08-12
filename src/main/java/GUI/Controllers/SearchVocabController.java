@@ -50,7 +50,7 @@ public class SearchVocabController implements Initializable {
         this.selectedVocabulary = selectedVocabulary;
     }
     public SearchVocabController() {
-        dataService = new DictionaryDataService();
+        dataService = DictionaryDataService.getInstance();
         translatorService = new ApiCognitiveMicrosoftTranslatorService();
         textToSpeechService = new ApiCognitiveMicrosoftTextToSpeechService();
         vocabularyList = new ListView<>();

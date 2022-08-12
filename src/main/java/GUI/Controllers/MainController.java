@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
@@ -48,8 +49,10 @@ public class MainController implements Initializable {
     }
 
     public void navigateToTranslateTextView() throws IOException {
-        searchVocabButton.setStyle("-fx-background-color:  #4b4b4c; ");
-        translateTextButton.setStyle("-fx-background-color: #3c3f41; ");
+        searchVocabButton.setStyle("-fx-background-color:  #4b4b4c;  -fx-cursor: hand;");
+        searchVocabButton.fontProperty().set(new Font("System", 17));
+        translateTextButton.setStyle("-fx-background-color: #3c3f41;  -fx-cursor: hand;");
+        translateTextButton.fontProperty().set(new Font("System Bold", 18));
         Parent root = FXMLLoader.load(getClass().getResource("/Views/TranslateTextView.fxml"));
         viewStack.getChildren().removeAll();
         viewStack.getChildren().setAll(root);
@@ -58,8 +61,10 @@ public class MainController implements Initializable {
         navigateToSearchVocabView();
     }
     public void navigateToSearchVocabView() throws IOException {
-        searchVocabButton.setStyle("-fx-background-color: #3c3f41; ");
-        translateTextButton.setStyle("-fx-background-color: #4b4b4c; ");
+        searchVocabButton.setStyle("-fx-background-color: #3c3f41;  -fx-cursor: hand;");
+        searchVocabButton.fontProperty().set(new Font("System Bold", 18));
+        translateTextButton.setStyle("-fx-background-color: #4b4b4c;  -fx-cursor: hand;");
+        translateTextButton.fontProperty().set(new Font("System", 17));
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/SearchVocabView.fxml"));
         Parent root = fxmlLoader.load();
         SearchVocabController searchVocabController = fxmlLoader.getController();
