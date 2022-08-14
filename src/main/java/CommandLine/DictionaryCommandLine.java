@@ -1,4 +1,5 @@
-package CommandLine;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class DictionaryCommandLine {
   DictionaryManagement dictionaryManagement = new DictionaryManagement();
@@ -19,15 +20,28 @@ public class DictionaryCommandLine {
     showAllWords();
   }
 
-  public void dictionaryAdvanced(Dictionary dictionary) {
+  public void dictionaryAdvanced(Dictionary dictionary) throws IOException {
     dictionaryManagement.insertFromFile(dictionary);
     showAllWords();
     dictionaryManagement.dictionaryLookup(dictionary);
   }
 
-  public static void main(String[] args) throws Exception {
-    DictionaryCommandLine dictionaryCommandLine = new DictionaryCommandLine();
-    Dictionary dictionary = new Dictionary();
-    dictionaryCommandLine.dictionaryAdvanced(dictionary);
+  public void dictionarySearcher(Dictionary dic) {
+    Scanner sc = new Scanner(System.in);
+    String s = sc.nextLine();
+    for (Word word : dic.words) {
+      if (word.getWord_target().contains(s)) {
+        System.out.println(word.getWord_target() + "\t" + word.getWord_explain());
+      }
+    }
   }
+
+//  public static void main(String[] args) throws IOException {
+//    Dictionary dic = new Dictionary();
+//    DictionaryManagement man = new DictionaryManagement();
+//    DictionaryCommandLine cml = new DictionaryCommandLine();
+//    cml.dictionaryAdvanced(dic);
+//    //man.addWord(dic);
+//    man.removeWord(dic);
+//  }
 }
