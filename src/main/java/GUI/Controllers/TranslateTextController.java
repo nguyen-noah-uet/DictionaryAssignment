@@ -3,13 +3,15 @@ package GUI.Controllers;
 import GUI.Services.Api.ApiCognitiveMicrosoftTextToSpeechService;
 import GUI.Services.Api.ApiCognitiveMicrosoftTranslatorService;
 import GUI.Services.Api.Language;
-import GUI.Services.CheckInternetConnectivity;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.TextArea;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -99,20 +101,15 @@ public class TranslateTextController implements Initializable {
     }
 
     private void listen(String text,final String languageAcronym) {
-        if (!CheckInternetConnectivity.IsConnected()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Đã có lỗi xảy ra khi thực hiện phát âm, hãy thử kiểm tra kết nối internet.", ButtonType.OK);
-            alert.setTitle("Error.");
-            alert.setHeaderText("Đã có lỗi xảy ra.");
-            alert.showAndWait();
-            return;
-        }
         Thread thread = new Thread() {
             @Override
             public void run() {
                 try {
                     textToSpeechService.textToSpeech(text, languageAcronym.equals(Language.Auto_Detect) ? Language.English : languageAcronym);
-                } catch (ExecutionException | InterruptedException e) {
-                    // ignore
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
             }
         };
@@ -120,13 +117,6 @@ public class TranslateTextController implements Initializable {
     }
 
     public void translateButton_OnClicked(ActionEvent actionEvent) {
-        if (!CheckInternetConnectivity.IsConnected()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Đã có lỗi xảy ra khi thực hiện lệnh dịch, hãy thử kiểm tra kết nối internet.", ButtonType.OK);
-            alert.setTitle("Error.");
-            alert.setHeaderText("Đã có lỗi xảy ra.");
-            alert.showAndWait();
-            return;
-        }
         Thread thread = new Thread() {
             @Override
             public void run() {
