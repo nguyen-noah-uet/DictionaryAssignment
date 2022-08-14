@@ -31,7 +31,7 @@ public class DictionaryCommandLine {
     Scanner sc = new Scanner(System.in);
     String s = sc.nextLine();
     for (Word word : dic.words) {
-      if (word.getWord_target().contains(s)) {
+      if (word.getWord_target().startsWith(s)) {
         System.out.println(word.getWord_target() + "\t" + word.getWord_explain());
       }
     }
