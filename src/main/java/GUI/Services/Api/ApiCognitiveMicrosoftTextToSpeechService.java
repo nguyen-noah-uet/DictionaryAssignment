@@ -37,7 +37,7 @@ public class ApiCognitiveMicrosoftTextToSpeechService {
 
         SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
 
-        SpeechSynthesisResult speechRecognitionResult = speechSynthesizer.SpeakTextAsync(text).get();
+        speechSynthesizer.SpeakTextAsync(text).get();
     }
 
 //    public static void main(String[] args) throws InterruptedException, ExecutionException {

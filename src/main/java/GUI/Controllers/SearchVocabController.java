@@ -4,6 +4,7 @@ import GUI.Entities.Vocabulary;
 import GUI.Services.Api.ApiCognitiveMicrosoftTextToSpeechService;
 import GUI.Services.Api.ApiCognitiveMicrosoftTranslatorService;
 import GUI.Services.Api.Language;
+import GUI.Services.CheckInternetConnectivity;
 import GUI.Services.Data.DictionaryDataService;
 import GUI.Services.Data.IDataService;
 import javafx.beans.property.Property;
@@ -39,7 +40,6 @@ public class SearchVocabController implements Initializable {
     @FXML
     public Button pronounceButton;
     private final IDataService<Vocabulary> dataService;
-    private final ApiCognitiveMicrosoftTranslatorService translatorService;
     private final ApiCognitiveMicrosoftTextToSpeechService textToSpeechService;
     private Vocabulary selectedVocabulary;
     public Vocabulary getSelectedVocabulary() {
@@ -51,7 +51,6 @@ public class SearchVocabController implements Initializable {
     }
     public SearchVocabController() {
         dataService = DictionaryDataService.getInstance();
-        translatorService = new ApiCognitiveMicrosoftTranslatorService();
         textToSpeechService = new ApiCognitiveMicrosoftTextToSpeechService();
         vocabularyList = new ListView<>();
     }
@@ -61,7 +60,12 @@ public class SearchVocabController implements Initializable {
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             String searchTerm = newValue != null ? newValue : "";
             updateVocabularyList(searchTerm);
-            vocabularyList.getSelectionModel().select(0);
+            if (vocabularyList.getItems().size() > 0) {
+                vocabularyList.getSelectionModel().select(0);
+            } else {
+                webView.getEngine().loadContent(String.format("<h2>Xin lỗi, từ '%s' không xuất hiện trong từ điển.</h2>", searchTerm));
+            }
+
         });
         vocabularyList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         vocabularyList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -122,11 +126,18 @@ public class SearchVocabController implements Initializable {
     public void pronounceButton_OnClicked(MouseEvent mouseEvent) {
         if (selectedVocabulary == null)
             return;
+        if (!CheckInternetConnectivity.IsConnected()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Đã có lỗi xảy ra khi thực hiện phát âm, hãy thử kiểm tra kết nối internet.", ButtonType.OK);
+            alert.setTitle("Error.");
+            alert.setHeaderText("Đã có lỗi xảy ra.");
+            alert.showAndWait();
+            return;
+        }
         Thread thread = new Thread(() -> {
             try {
                 textToSpeechService.textToSpeech(selectedVocabulary.getWord(), Language.English);
             } catch (ExecutionException | InterruptedException e) {
-                throw new RuntimeException(e);
+                // ignore
             }
         });
         thread.start();
