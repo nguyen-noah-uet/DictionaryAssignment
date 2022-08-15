@@ -1,17 +1,17 @@
 package GUI.Controllers;
 
+import GUI.Services.Api.ApiCognitiveMicrosoftSpeechToTextService;
 import GUI.Services.Api.ApiCognitiveMicrosoftTextToSpeechService;
 import GUI.Services.Api.ApiCognitiveMicrosoftTranslatorService;
 import GUI.Services.Api.Language;
+import GUI.Services.CheckInternetConnectivity;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.SingleSelectionModel;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,8 +23,9 @@ public class TranslateTextController implements Initializable {
     public Button leftListenButton;
     @FXML
     public Button rightListenButton;
-    private SingleSelectionModel<Language> srcLanguage;
-    private SingleSelectionModel<Language> desLanguage;
+    @FXML
+    public Button speakButton;
+
     @FXML
     public Button swapButton;
     @FXML
@@ -35,23 +36,32 @@ public class TranslateTextController implements Initializable {
     public ComboBox<Language> leftComboBox;
     @FXML
     public ComboBox<Language> rightComboBox;
-
-    private final Property<Boolean> showSwapButton = new SimpleBooleanProperty(true);
-
+    private SingleSelectionModel<Language> srcLanguage;
+    private SingleSelectionModel<Language> desLanguage;
+    private Property<Boolean> showSwapButton;
+    private Property<Boolean> showSpeakButton;
+    private Property<Boolean> isSpeaking;
     private String textTranslated;
     private final ApiCognitiveMicrosoftTranslatorService translatorService;
     private final ApiCognitiveMicrosoftTextToSpeechService textToSpeechService;
+    private final ApiCognitiveMicrosoftSpeechToTextService speechToTextService;
 
 
     public TranslateTextController() {
         translatorService = new ApiCognitiveMicrosoftTranslatorService();
         textToSpeechService = new ApiCognitiveMicrosoftTextToSpeechService();
+        speechToTextService = new ApiCognitiveMicrosoftSpeechToTextService();
+        showSwapButton = new SimpleBooleanProperty(true);
+        showSpeakButton = new SimpleBooleanProperty(true);
+        isSpeaking = new SimpleBooleanProperty(false);
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            speakButton.disableProperty().bindBidirectional(isSpeaking);
+            speakButton.visibleProperty().bindBidirectional(showSpeakButton);
             swapButton.visibleProperty().bindBidirectional(showSwapButton);
             leftComboBox.getItems().addAll(Language.getSrcLanguage());
             rightComboBox.getItems().addAll(Language.getDesLanguage());
@@ -65,12 +75,24 @@ public class TranslateTextController implements Initializable {
                 } else {
                     showSwapButton.setValue(true);
                 }
-                textTranslated = translatorService.translate(leftTextArea.getText(), leftComboBox.getValue().getAcronym(), rightComboBox.getValue().getAcronym());
-                rightTextArea.setText(textTranslated);
+                if (leftComboBox.getValue().getName().equals("Tiếng Anh")) {
+                    showSpeakButton.setValue(true);
+                } else {
+                    showSpeakButton.setValue(false);
+                }
+                translate();
             });
             rightComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-                textTranslated = translatorService.translate(leftTextArea.getText(), leftComboBox.getValue().getAcronym(), rightComboBox.getValue().getAcronym());
-                rightTextArea.setText(textTranslated);
+                translate();
+            });
+            leftTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (leftTextArea.getText().length() < 100) {
+                    leftTextArea.setFont(new Font("Times New Roman", 34));
+                    rightTextArea.setFont(new Font("Times New Roman", 34));
+                } else {
+                    leftTextArea.setFont(new Font("Times New Roman", 22));
+                    rightTextArea.setFont(new Font("Times New Roman", 22));
+                }
             });
         } catch (Exception e) {
             System.out.println(e.getCause());
@@ -101,14 +123,20 @@ public class TranslateTextController implements Initializable {
     }
 
     private void listen(String text,final String languageAcronym) {
+        if (!CheckInternetConnectivity.IsConnected()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Đã có lỗi xảy ra khi thực hiện phát âm, hãy thử kiểm tra kết nối internet.", ButtonType.OK);
+            alert.setTitle("Error.");
+            alert.setHeaderText("Đã có lỗi xảy ra.");
+            alert.showAndWait();
+            return;
+        }
         Thread thread = new Thread() {
             @Override
             public void run() {
                 try {
                     textToSpeechService.textToSpeech(text, languageAcronym.equals(Language.Auto_Detect) ? Language.English : languageAcronym);
-                } catch (ExecutionException e) {
-                    throw new RuntimeException(e);
-                } catch (InterruptedException e) {
+                } catch (ExecutionException | InterruptedException e) {
+                    System.out.println(e.getMessage());
                     throw new RuntimeException(e);
                 }
             }
@@ -117,11 +145,58 @@ public class TranslateTextController implements Initializable {
     }
 
     public void translateButton_OnClicked(ActionEvent actionEvent) {
+
+        translate();
+    }
+
+    public void speakButton_OnClicked(ActionEvent actionEvent) {
+        if (!CheckInternetConnectivity.IsConnected()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Đã có lỗi xảy ra khi dịch từ giọng nói, hãy thử kiểm tra kết nối internet.", ButtonType.OK);
+            alert.setTitle("Error.");
+            alert.setHeaderText("Đã có lỗi xảy ra.");
+            alert.showAndWait();
+            return;
+        }
+        isSpeaking.setValue(true);
+        leftTextArea.setText("Đang nghe...");
+        rightTextArea.setText("");
+        translateFromSpeech();
+    }
+    private void translate() {
+        if (!CheckInternetConnectivity.IsConnected()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Đã có lỗi xảy ra khi dịch văn bản, hãy thử kiểm tra kết nối internet.", ButtonType.OK);
+            alert.setTitle("Error.");
+            alert.setHeaderText("Đã có lỗi xảy ra.");
+            alert.showAndWait();
+            return;
+        }
         Thread thread = new Thread() {
             @Override
             public void run() {
                 textTranslated = translatorService.translate(leftTextArea.getText(), leftComboBox.getValue().getAcronym(), rightComboBox.getValue().getAcronym());
                 rightTextArea.setText(textTranslated);
+            }
+        };
+        if (leftTextArea.getText().length() < 100) {
+            leftTextArea.setFont(new Font("Times New Roman", 34));
+            rightTextArea.setFont(new Font("Times New Roman", 34));
+        } else {
+            leftTextArea.setFont(new Font("Times New Roman", 22));
+            rightTextArea.setFont(new Font("Times New Roman", 22));
+        }
+        isSpeaking.setValue(false);
+        thread.start();
+    }
+    private void translateFromSpeech() {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    leftTextArea.setText(speechToTextService.recognizeFromMicrophone());
+                } catch (InterruptedException | ExecutionException e) {
+                    System.out.println(e.getMessage());
+                }
+                translate();
             }
         };
         thread.start();

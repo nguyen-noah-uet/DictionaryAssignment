@@ -25,18 +25,24 @@
             <artifactId>okhttp</artifactId>
             <version>3.14.9</version>
         </dependency>
-        <!-- For serialize/deserialize json-->
+        <!-- For serializing/deserializing json-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.10.0</version>
         </dependency>
-        <!-- For text to speech -->
+        <!-- For text to speech service-->
         <!-- https://mvnrepository.com/artifact/com.microsoft.cognitiveservices.speech/client-jar-sdk -->
         <dependency>
             <groupId>com.microsoft.cognitiveservices.speech</groupId>
             <artifactId>client-jar-sdk</artifactId>
             <version>1.14.0</version>
+        </dependency>
+        <!--For speech to text service-->
+        <dependency>
+            <groupId>com.microsoft.cognitiveservices.speech</groupId>
+            <artifactId>client-sdk</artifactId>
+            <version>1.23.0</version>
         </dependency>
         <!-- For formatting Html -->
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
